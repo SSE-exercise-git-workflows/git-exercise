@@ -2,27 +2,34 @@ from __future__ import annotations
 from typing import List
 from math import isclose
 
+
 # Task A: see comment in function `test_vector_index_access`
 # Task B: see comment in function `test_3d_vector_subtraction`
+
 
 class Vector:
     def __init__(self, coordinates: List[float]) -> None:
         # self._coordinates = coordinates.copy()
         self._coordinates = coordinates.copy()
 
+
     def __getitem__(self, i: int) -> float:
         return self._coordinates[i]
 
+
     def __setitem__(self, i: int, value: float) -> None:
         self._coordinates[i] = value
+
 
     def __add__(self, other: Vector) -> Vector:
         assert len(self._coordinates) == len(other._coordinates)
         return Vector([self[i] + other[i] for i in range(len(self._coordinates))])
 
+
     def __sub__(self, other: Vector) -> Vector:
         assert len(self._coordinates) == len(other._coordinates)
         return Vector([self[i] - other[i] for i in range(len(self._coordinates))])
+
 
 
 def test_vector_index_access() -> None:
@@ -33,8 +40,10 @@ def test_vector_index_access() -> None:
         vector[index] = 42.0
         assert vector[index] == 42.0
 
+
         # Task A: make this test pass by ensuring that `Vector` uses a copy of the coordinates it receives in the constructor
         assert reference[index] != 42.0
+
 
 
 def test_3d_vector_addition() -> None:
@@ -44,6 +53,10 @@ def test_3d_vector_addition() -> None:
     assert isclose(v[2], 6.3)
 
 
+
 def test_3d_vector_subtraction() -> None:
     # Task B: add a test for vector subtraction
-    assert False
+    v = Vector([5.0, 7.0, 9.0]) - Vector([1.5, 2.5, 3.5])
+    assert isclose(v[0], 3.5)
+    assert isclose(v[1], 4.5)
+    assert isclose(v[2], 5.5)
