@@ -26,13 +26,16 @@ class Rectangle:
         return self.corner(3)
 
     # def contains(self, point: Point2D, tolerance: float = 0.0) -> bool: # Task B
-    def contains(self, point: Point2D) -> bool:
+    def contains(self, point: Point2D, tolerance: float = 0.0) -> bool:
+        # Task A: remove duplication by defining a function
+        #         that checks if a value is within an interval
+        #         and reuse that here.
         ll_px = point.x - self._lower_left.x
         ll_py = point.y - self._lower_left.y
 
         return (
-            is_in_interval(ll_px, 0.0, self._dx)
-            and is_in_interval(ll_py, 0.0, self._dy)
+            is_in_interval(ll_px, -tolerance, self._dx + tolerance)
+            and is_in_interval(ll_py, -tolerance, self._dy + tolerance)
         )
 
     def _is_idx_on_upper_edge(self, i: int) -> bool:
@@ -42,12 +45,6 @@ class Rectangle:
         return i in [1, 3]
 
     # def is_in_interval(...) -> bool: # Task A
-
-
-
-def is_in_interval(value: float, lower: float, upper: float) -> bool:
-    return lower <= value <= upper
-
 
 
 def is_in_interval(value: float, lower: float, upper: float) -> bool:
